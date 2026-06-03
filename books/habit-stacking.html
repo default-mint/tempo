@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Habit Stacking: Routines That Stick — Tempo</title>
+  <meta name="description" content="Habit Stacking: Routines That Stick (Digital Download). Attach new habits to things you already do.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+  <style>
+    
+  :root {
+    --bg:         #0E0F12;
+    --bg-elev:    #16171C;
+    --bg-card:    #1A1C22;
+    --ink:        #F5F2EE;
+    --muted:      #B5B8C5;
+    --muted-2:    #989CAA;
+    --rule:       #2A2D3A;
+    --rule-hi:    #393D4E;
+    --accent:     #6366F1;
+    --accent-soft:#E0E7FF;
+    --cream:      #F2EFEA;
+    --cream-ink:  #1F2026;
+    --cream-mute: #5E6170;
+    --cream-rule: #DAD5CC;
+    --accent-dim: #4338CA;
+    --ok:         #4ADE80;
+    --display:    'Barlow Condensed', system-ui, sans-serif;
+    --body:       'DM Sans', system-ui, sans-serif;
+    --mono:       'IBM Plex Mono', ui-monospace, monospace;
+    --maxw:       1240px;
+    --r:          14px;
+    --r-sm:       10px;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  ::selection { background: var(--accent); color: #fff; }
+  .mono { font-family: var(--mono); font-feature-settings: "tnum"; }
+  .container { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+  @media (max-width: 640px) { .container { padding: 0 18px; } }
+
+  /* nav */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(14,15,18,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .topbar .row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 28px;
+    max-width: var(--maxw); margin: 0 auto;
+  }
+  .wordmark {
+    font-family: var(--display);
+    font-weight: 700; font-size: 30px;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .wordmark .mark {
+    width: 32px; height: 32px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 16px; font-weight: 600;
+    font-family: var(--body);
+  }
+  .nav-links {
+    display: flex; gap: 30px; align-items: center;
+    font-size: 16px; color: var(--muted);
+    font-weight: 500;
+  }
+  .nav-links a { transition: color .14s ease; }
+  .nav-links a:hover { color: var(--ink); }
+  .cart-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 16px;
+    background: var(--bg-elev);
+    border: 1px solid var(--rule-hi);
+    border-radius: var(--r-sm);
+    font-size: 15px;
+    font-weight: 500;
+    transition: border-color .14s ease;
+  }
+  .cart-btn:hover { border-color: var(--accent); }
+  .cart-btn[data-empty="0"] { border-color: var(--accent); color: var(--accent); }
+  .cart-btn .cb-count {
+    background: var(--accent); color: #fff;
+    border-radius: 999px;
+    min-width: 24px; height: 24px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600;
+  }
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+  }
+
+  /* buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 26px;
+    background: var(--accent); color: #fff;
+    border: 0; border-radius: 999px;
+    font-family: var(--body); font-weight: 600; font-size: 16px;
+    cursor: pointer;
+    transition: transform .12s ease, background .14s ease;
+  }
+  .btn:hover { transform: translateY(-1px); background: #4F46E5; }
+  .btn--ghost {
+    background: transparent; color: var(--ink);
+    border: 1px solid var(--rule-hi);
+  }
+  .btn--ghost:hover { background: var(--bg-elev); border-color: var(--ink); }
+  .btn--big { padding: 18px 32px; font-size: 17px; }
+
+  /* footer */
+  footer.foot {
+    margin-top: 100px;
+    border-top: 1px solid var(--rule);
+    padding: 56px 28px 32px;
+    background: #0A0B0E;
+  }
+  footer.foot .row {
+    max-width: var(--maxw); margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 36px;
+  }
+  footer.foot h4 {
+    font-size: 15px; font-weight: 600;
+    margin: 0 0 16px; color: var(--ink);
+  }
+  footer.foot a {
+    display: block; padding: 6px 0;
+    color: var(--muted); font-size: 16px;
+    transition: color .14s ease;
+  }
+  footer.foot a:hover { color: var(--accent); }
+  footer.foot .colophon {
+    color: var(--muted); font-size: 16px; line-height: 1.7;
+  }
+  footer.foot .colophon strong { color: var(--ink); font-weight: 600; }
+  footer.foot .smallprint {
+    max-width: var(--maxw); margin: 44px auto 0;
+    padding-top: 24px; border-top: 1px solid var(--rule);
+    font-size: 14px; color: var(--muted);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px;
+  }
+  @media (max-width: 900px) { footer.foot .row { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 540px) { footer.foot .row { grid-template-columns: 1fr; } }
+
+
+    /* Top spread — single row, no sticky rail */
+    .spread {
+      max-width: var(--maxw); margin: 0 auto;
+      padding: 40px 28px 60px;
+    }
+    .crumbs {
+      font-size: 15px; color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .crumbs a:hover { color: var(--ink); }
+    .crumbs span { color: var(--ink); }
+
+    .spread .grid2 {
+      display: grid;
+      grid-template-columns: 0.85fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .cover-card {
+      background: var(--bg-elev);
+      border-radius: var(--r);
+      padding: 26px;
+      border: 1px solid var(--rule);
+    }
+    .cover-card img {
+      width: 100%; height: auto;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: var(--r-sm);
+      box-shadow: 0 24px 50px rgba(0,0,0,0.55);
+    }
+
+    .info-col {}
+    .bucket-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 16px;
+      background: rgba(99,102,241,0.12);
+      color: var(--accent);
+      border-radius: 999px;
+      font-size: 15px; font-weight: 500;
+      margin-bottom: 20px;
+    }
+    h1.title {
+      font-family: var(--display); font-weight: 700;
+      font-size: clamp(40px, 5vw, 56px);
+      line-height: 1.05; letter-spacing: -0.01em;
+      margin: 0 0 12px;
+    }
+    .by { font-size: 18px; color: var(--muted); margin: 0 0 24px; }
+    .by b { color: var(--ink); font-weight: 500; }
+
+    .price-block {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: var(--r);
+      padding: 28px;
+      margin: 24px 0 28px;
+    }
+    .price-row { display: flex; align-items: baseline; gap: 14px; margin-bottom: 20px; }
+    .price-row .price {
+      font-family: var(--display); font-weight: 700;
+      font-size: 56px; line-height: 1;
+      color: var(--accent);
+      letter-spacing: -0.01em;
+    }
+    .price-row .currency { font-size: 16px; color: var(--muted); }
+    .formats { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+    .fmt-chip {
+      padding: 6px 14px;
+      background: var(--bg-elev);
+      border: 1px solid var(--rule-hi);
+      border-radius: 999px;
+      font-size: 14px; color: var(--muted);
+      font-weight: 500;
+    }
+    .buy-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .buy-actions .btn { flex: 1; justify-content: center; }
+    .add-msg {
+      margin-top: 16px;
+      font-size: 15px;
+      color: var(--ok);
+      display: none;
+    }
+    .add-msg.show { display: flex; align-items: center; gap: 8px; }
+
+    .info-list {
+      margin-top: 22px;
+      padding-top: 22px;
+      border-top: 1px solid var(--rule);
+    }
+    .info-row {
+      display: flex; justify-content: space-between;
+      padding: 10px 0;
+      font-size: 16px;
+    }
+    .info-k { color: var(--muted); }
+    .info-v { color: var(--ink); font-weight: 500; }
+
+    /* Reading column — description sits below the spread, centered, max 720 */
+    .read-col {
+      max-width: 760px; margin: 0 auto;
+      padding: 30px 28px 60px;
+    }
+    .desc h2 {
+      font-family: var(--display); font-weight: 700;
+      font-size: 30px; margin: 0 0 16px;
+      letter-spacing: -0.005em;
+    }
+    .desc p { margin: 0 0 18px; color: var(--ink); line-height: 1.7; font-size: 19px; }
+    .desc ul { padding-left: 0; list-style: none; margin: 20px 0; }
+    .desc li {
+      padding-left: 32px;
+      position: relative;
+      margin: 12px 0;
+      color: var(--ink);
+      line-height: 1.6;
+      font-size: 19px;
+    }
+    .desc li::before {
+      content: "✓";
+      position: absolute;
+      left: 0; top: 0;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 19px;
+    }
+    .desc-h {
+      font-family: var(--display); font-weight: 700;
+      font-size: 24px;
+      margin: 30px 0 12px;
+      letter-spacing: -0.005em;
+    }
+
+    /* reviews — sit on cream background, contrast break */
+    .reviews-band { background: var(--cream); color: var(--cream-ink); padding: 80px 28px; }
+    .reviews {
+      max-width: var(--maxw); margin: 0 auto;
+    }
+    .reviews h2 {
+      font-family: var(--display); font-weight: 700;
+      font-size: clamp(30px, 3.4vw, 42px);
+      margin: 0 0 32px;
+      letter-spacing: -0.01em;
+      color: var(--cream-ink);
+    }
+    .review-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+    .review {
+      background: #FFF;
+      border: 1px solid var(--cream-rule);
+      border-radius: var(--r);
+      padding: 28px 30px;
+      margin: 0;
+    }
+    .review blockquote { margin: 0 0 16px; line-height: 1.6; font-size: 18px; color: var(--cream-ink); }
+    .review figcaption { color: var(--cream-mute); font-size: 15px; font-weight: 500; }
+    @media (max-width: 720px) { .review-grid { grid-template-columns: 1fr; } }
+
+    /* xsell */
+    .xsell {
+      max-width: var(--maxw); margin: 0 auto;
+      padding: 60px 28px 0;
+    }
+    .xsell h2 {
+      font-family: var(--display); font-weight: 700;
+      font-size: clamp(30px, 3.4vw, 42px);
+      margin: 0 0 32px;
+      letter-spacing: -0.01em;
+    }
+    .xsell .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    @media (max-width: 720px) { .xsell .grid { grid-template-columns: 1fr 1fr; } }
+
+    /* Reuse card styles for xsell */
+    .card {
+      display: flex; flex-direction: column;
+      background: var(--bg-card);
+      border-radius: var(--r);
+      overflow: hidden;
+      border: 1px solid var(--rule);
+      transition: transform .18s ease, border-color .18s ease;
+    }
+    .card:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .card-cover { position: relative; aspect-ratio: 3 / 4; overflow: hidden; background: var(--bg); }
+    .card-cover img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+    .card:hover .card-cover img { transform: scale(1.04); }
+    .card-bucket {
+      position: absolute; top: 12px; left: 12px;
+      padding: 5px 10px;
+      background: rgba(14,15,18,0.85); backdrop-filter: blur(8px);
+      border-radius: 999px; font-size: 12px; font-weight: 500;
+    }
+    .card-body { padding: 22px 22px 24px; display: flex; flex-direction: column; flex: 1; gap: 8px; }
+    .card-title {
+      margin: 0;
+      font-family: var(--display); font-weight: 700;
+      font-size: 24px; line-height: 1.18; letter-spacing: -0.005em;
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .card-byline { margin: 0 0 8px; font-size: 15px; color: var(--muted); }
+    .card-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 10px; }
+    .card-price { font-size: 20px; font-weight: 600; color: var(--accent); }
+    .card-cta { font-size: 15px; font-weight: 500; color: var(--muted); }
+    .card:hover .card-cta { color: var(--accent); }
+
+    @media (max-width: 880px) {
+      .spread .grid2 { grid-template-columns: 1fr; gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="row">
+      <a class="wordmark" href="../index.html">
+        <span class="mark">T</span>Tempo
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html#library">Library</a>
+        <a href="../index.html#about">About</a>
+        <a href="../delivery.html">Delivery</a>
+        <a href="../returns.html">Refunds</a>
+      </nav>
+      <a class="cart-btn" href="../checkout.html" id="cart-btn" data-empty="1">
+        🛒 Cart <span class="cb-count" id="cart-count">0</span>
+      </a>
+    </div>
+  </header>
+
+<section class="spread">
+  <div class="crumbs">
+    <a href="../index.html">Library</a> / <span>Habit Stacking: Routines That Stick</span>
+  </div>
+  <div class="grid2">
+    <div class="cover-card">
+      <img src="../covers/habit-stacking.jpg" alt="Habit Stacking: Routines That Stick cover">
+    </div>
+    <div class="info-col">
+      <div class="bucket-tag">⚡ Focus guides</div>
+      <h1 class="title">Habit Stacking: Routines That Stick</h1>
+      <p class="by">A <b>Tempo</b> guide</p>
+      <div class="price-block">
+        <div class="price-row">
+          <span class="price">$24.49</span>
+          <span class="currency">USD · one-time</span>
+        </div>
+        <div class="formats"><span class="fmt-chip">PDF</span><span class="fmt-chip">Instant download</span></div>
+        <div class="buy-actions">
+          <button class="btn" id="add">🛒 Add to cart</button>
+          <button class="btn btn--ghost" id="buy">Buy now</button>
+        </div>
+        <div class="add-msg" id="add-msg">✓ Added to cart</div>
+        <div class="info-list">
+          <div class="info-row"><span class="info-k">📨 Delivery</span><span class="info-v">By email</span></div>
+          <div class="info-row"><span class="info-k">Pages</span><span class="info-v">32</span></div>
+          <div class="info-row"><span class="info-k">🛡️ Refund</span><span class="info-v">30 days</span></div>
+          <div class="info-row"><span class="info-k">📂 Format</span><span class="info-v">PDF</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="read-col">
+  <div class="desc">
+    <h2>About this ebook</h2>
+    <p class="lede" style="color:var(--muted);font-size:20px;margin:0 0 18px">Attach new habits to things you already do.</p>
+    <p>Habits fail when they float on their own, waiting for motivation that rarely shows up. Habit Stacking solves this by anchoring each new habit to something you already do without thinking, like making coffee or sitting down at your desk. The existing routine becomes the reminder, so the new habit has a reliable place to live instead of relying on you to remember it.</p><p>This book walks you through building small, sturdy stacks one link at a time. You will learn how to pick anchors that actually trigger, keep new habits tiny enough to survive bad days, and repair a stack when life knocks it loose. The result is a set of routines that run quietly in the background and hold up long after the initial excitement fades.</p>
+    <div class="desc-h">What is inside</div>
+    <ul><li>Anchor new habits to routines you already do</li><li>Keep habits small enough to survive busy days</li><li>Choose reminders that actually trigger the behavior</li><li>Build morning and evening stacks that hold</li><li>Repair a broken stack without starting over</li><li>Track progress without fussy apps or charts</li><li>Grow a stack slowly so it lasts</li></ul>
+  </div>
+</section>
+
+<section class="xsell">
+  <h2>📖 More from the library</h2>
+  <div class="grid">
+    <a class="card" href="../books/the-focus-reset.html">
+      <div class="card-cover">
+        <img src="../covers/the-focus-reset.jpg" alt="The Focus Reset: Beat Distraction in 7 Days" loading="lazy">
+        <span class="card-bucket">⚡ Focus guides</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">The Focus Reset: Beat Distraction in 7 Days</h3>
+        <div class="card-foot">
+          <span class="card-price mono">$22.95</span>
+          <span class="card-cta">View →</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="../books/the-time-block-week.html">
+      <div class="card-cover">
+        <img src="../covers/the-time-block-week.jpg" alt="The Time-Block Week" loading="lazy">
+        <span class="card-bucket">⚡ Focus guides</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">The Time-Block Week</h3>
+        <div class="card-foot">
+          <span class="card-price mono">$26.95</span>
+          <span class="card-cta">View →</span>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="../books/deep-work-for-beginners.html">
+      <div class="card-cover">
+        <img src="../covers/deep-work-for-beginners.jpg" alt="Deep Work for Beginners" loading="lazy">
+        <span class="card-bucket">⚡ Focus guides</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Deep Work for Beginners</h3>
+        <div class="card-foot">
+          <span class="card-price mono">$21.49</span>
+          <span class="card-cta">View →</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+
+  <footer class="foot">
+    <div class="row">
+      <div class="colophon">
+        <strong>Tempo</strong> is a small online shop for practical productivity ebooks. Honest, no fluff guides on focus, habits, time management, and doing deep work.<br><br>
+        [Company details to be added]
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <a href="../index.html#library">All books</a>
+        <a href="../index.html#about">About Tempo</a>
+        <a href="../checkout.html">Cart</a>
+      </div>
+      <div>
+        <h4>Help</h4>
+        <a href="../delivery.html">Delivery</a>
+        <a href="../returns.html">Refunds</a>
+        <a href="mailto:help@temporeads.com">help@temporeads.com</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="../terms.html">Terms</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../returns.html">Refund policy</a>
+      </div>
+    </div>
+    <div class="smallprint">
+      <span>© 2026 Tempo. All rights reserved.</span>
+      <span>Built for focused work.</span>
+    </div>
+  </footer>
+
+<script>
+  
+  const CURRENCY_SYMBOL = '$';
+  function readCart() { try { return JSON.parse(localStorage.getItem('cart_v1') || '[]'); } catch(e) { return []; } }
+  function writeCart(c) { localStorage.setItem('cart_v1', JSON.stringify(c)); paintCart(); }
+  function addToCart(item) {
+    const c = readCart();
+    const existing = c.find(x => x.slug === item.slug);
+    if (existing) existing.qty = (existing.qty || 1) + 1;
+    else c.push({...item, qty: 1});
+    writeCart(c);
+  }
+  function cartCount() { return readCart().reduce((n, i) => n + (i.qty || 1), 0); }
+  function paintCart() {
+    const n = cartCount();
+    const el = document.getElementById('cart-count');
+    const btn = document.getElementById('cart-btn');
+    if (el) el.textContent = n;
+    if (btn) btn.dataset.empty = n === 0 ? '1' : '0';
+  }
+  document.addEventListener('DOMContentLoaded', paintCart);
+  window.addEventListener('storage', paintCart);
+
+  const SKU = {"slug": "habit-stacking", "title": "Habit Stacking: Routines That Stick", "price": 24.49, "deliverables": ["PDF"], "author": "Tempo"};
+  document.getElementById('add').addEventListener('click', () => {
+    addToCart(SKU);
+    const m = document.getElementById('add-msg');
+    m.classList.add('show');
+    setTimeout(() => m.classList.remove('show'), 1600);
+  });
+  document.getElementById('buy').addEventListener('click', () => {
+    addToCart(SKU);
+    location.href = '../checkout.html';
+  });
+</script>
+</body>
+</html>

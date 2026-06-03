@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout — Tempo</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+  <style>
+    
+  :root {
+    --bg:         #0E0F12;
+    --bg-elev:    #16171C;
+    --bg-card:    #1A1C22;
+    --ink:        #F5F2EE;
+    --muted:      #B5B8C5;
+    --muted-2:    #989CAA;
+    --rule:       #2A2D3A;
+    --rule-hi:    #393D4E;
+    --accent:     #6366F1;
+    --accent-soft:#E0E7FF;
+    --cream:      #F2EFEA;
+    --cream-ink:  #1F2026;
+    --cream-mute: #5E6170;
+    --cream-rule: #DAD5CC;
+    --accent-dim: #4338CA;
+    --ok:         #4ADE80;
+    --display:    'Barlow Condensed', system-ui, sans-serif;
+    --body:       'DM Sans', system-ui, sans-serif;
+    --mono:       'IBM Plex Mono', ui-monospace, monospace;
+    --maxw:       1240px;
+    --r:          14px;
+    --r-sm:       10px;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  ::selection { background: var(--accent); color: #fff; }
+  .mono { font-family: var(--mono); font-feature-settings: "tnum"; }
+  .container { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+  @media (max-width: 640px) { .container { padding: 0 18px; } }
+
+  /* nav */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(14,15,18,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .topbar .row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 28px;
+    max-width: var(--maxw); margin: 0 auto;
+  }
+  .wordmark {
+    font-family: var(--display);
+    font-weight: 700; font-size: 30px;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .wordmark .mark {
+    width: 32px; height: 32px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 16px; font-weight: 600;
+    font-family: var(--body);
+  }
+  .nav-links {
+    display: flex; gap: 30px; align-items: center;
+    font-size: 16px; color: var(--muted);
+    font-weight: 500;
+  }
+  .nav-links a { transition: color .14s ease; }
+  .nav-links a:hover { color: var(--ink); }
+  .cart-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 16px;
+    background: var(--bg-elev);
+    border: 1px solid var(--rule-hi);
+    border-radius: var(--r-sm);
+    font-size: 15px;
+    font-weight: 500;
+    transition: border-color .14s ease;
+  }
+  .cart-btn:hover { border-color: var(--accent); }
+  .cart-btn[data-empty="0"] { border-color: var(--accent); color: var(--accent); }
+  .cart-btn .cb-count {
+    background: var(--accent); color: #fff;
+    border-radius: 999px;
+    min-width: 24px; height: 24px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600;
+  }
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+  }
+
+  /* buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 26px;
+    background: var(--accent); color: #fff;
+    border: 0; border-radius: 999px;
+    font-family: var(--body); font-weight: 600; font-size: 16px;
+    cursor: pointer;
+    transition: transform .12s ease, background .14s ease;
+  }
+  .btn:hover { transform: translateY(-1px); background: #4F46E5; }
+  .btn--ghost {
+    background: transparent; color: var(--ink);
+    border: 1px solid var(--rule-hi);
+  }
+  .btn--ghost:hover { background: var(--bg-elev); border-color: var(--ink); }
+  .btn--big { padding: 18px 32px; font-size: 17px; }
+
+  /* footer */
+  footer.foot {
+    margin-top: 100px;
+    border-top: 1px solid var(--rule);
+    padding: 56px 28px 32px;
+    background: #0A0B0E;
+  }
+  footer.foot .row {
+    max-width: var(--maxw); margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 36px;
+  }
+  footer.foot h4 {
+    font-size: 15px; font-weight: 600;
+    margin: 0 0 16px; color: var(--ink);
+  }
+  footer.foot a {
+    display: block; padding: 6px 0;
+    color: var(--muted); font-size: 16px;
+    transition: color .14s ease;
+  }
+  footer.foot a:hover { color: var(--accent); }
+  footer.foot .colophon {
+    color: var(--muted); font-size: 16px; line-height: 1.7;
+  }
+  footer.foot .colophon strong { color: var(--ink); font-weight: 600; }
+  footer.foot .smallprint {
+    max-width: var(--maxw); margin: 44px auto 0;
+    padding-top: 24px; border-top: 1px solid var(--rule);
+    font-size: 14px; color: var(--muted);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px;
+  }
+  @media (max-width: 900px) { footer.foot .row { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 540px) { footer.foot .row { grid-template-columns: 1fr; } }
+
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 48px 28px 80px; }
+    .head { margin-bottom: 36px; }
+    .head h1 {
+      font-family: var(--display); font-weight: 700;
+      font-size: clamp(40px, 5.6vw, 60px);
+      margin: 0 0 8px; letter-spacing: -0.01em;
+    }
+    .head p { color: var(--muted); margin: 0; font-size: 17px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 440px;
+      gap: 50px;
+    }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+    .panel {
+      background: var(--bg-elev);
+      border: 1px solid var(--rule);
+      border-radius: var(--r);
+      padding: 26px 26px 22px;
+    }
+    .panel h2 {
+      font-family: var(--display); font-weight: 700;
+      font-size: 22px; margin: 0 0 20px;
+      letter-spacing: -0.005em;
+    }
+
+    .item {
+      display: grid; grid-template-columns: 76px 1fr auto;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--rule);
+      align-items: center;
+    }
+    .item:last-child { border-bottom: 0; }
+    .item img {
+      width: 76px; height: 96px;
+      object-fit: cover; border-radius: var(--r-sm);
+      background: var(--bg);
+    }
+    .item-title { font-weight: 600; font-size: 17px; margin: 0 0 6px; line-height: 1.25; }
+    .item-meta { font-size: 14px; color: var(--muted); }
+    .item-actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+    .item-price { font-weight: 600; color: var(--accent); font-size: 19px; }
+    .qty { display: flex; align-items: center; gap: 8px; font-size: 15px; }
+    .qty button {
+      width: 28px; height: 28px;
+      background: var(--bg-card); color: var(--ink);
+      border: 1px solid var(--rule-hi);
+      border-radius: var(--r-sm);
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .qty button:hover { border-color: var(--accent); color: var(--accent); }
+    .remove {
+      background: transparent; border: 0;
+      color: var(--muted); font-size: 14px;
+      cursor: pointer; padding: 0;
+    }
+    .remove:hover { color: var(--accent); }
+
+    .totals {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule);
+      font-size: 16px;
+    }
+    .totals .r { display: flex; justify-content: space-between; padding: 7px 0; color: var(--muted); }
+    .totals .r.t {
+      font-family: var(--display); font-weight: 700;
+      font-size: 28px; color: var(--accent);
+      padding-top: 14px; margin-top: 10px;
+      border-top: 1px solid var(--rule);
+      letter-spacing: -0.01em;
+    }
+    .promo {
+      display: flex; gap: 10px; margin-top: 16px;
+    }
+    .promo input {
+      flex: 1; background: var(--bg-card);
+      border: 1px solid var(--rule-hi); border-radius: var(--r-sm);
+      color: var(--ink); font-family: var(--body);
+      padding: 12px 14px; font-size: 16px;
+    }
+    .promo input:focus { outline: none; border-color: var(--accent); }
+    .promo button {
+      padding: 12px 18px;
+      background: transparent; border: 1px solid var(--rule-hi);
+      color: var(--muted); border-radius: var(--r-sm);
+      font-family: var(--body); font-size: 15px; font-weight: 500;
+      cursor: pointer;
+    }
+    .promo button:hover { color: var(--accent); border-color: var(--accent); }
+    .promo-msg { font-size: 14px; margin-top: 10px; }
+    .promo-msg.ok { color: var(--ok); }
+    .promo-msg.err { color: #FF6058; }
+
+    /* form */
+    .field { margin-bottom: 18px; }
+    label { display: block; font-size: 15px; font-weight: 500; color: var(--muted); margin-bottom: 8px; }
+    input, select {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--rule-hi);
+      border-radius: var(--r-sm);
+      color: var(--ink);
+      padding: 14px 16px;
+      font-family: var(--body); font-size: 17px;
+    }
+    input:focus, select:focus { outline: none; border-color: var(--accent); }
+    input.err { border-color: #FF6058; }
+    .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .frow3 { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 14px; }
+    .pay-btn {
+      width: 100%; margin-top: 16px;
+      background: var(--accent); color: #fff;
+      border: 0; border-radius: 999px;
+      padding: 18px;
+      font-family: var(--body); font-size: 17px; font-weight: 600;
+      cursor: pointer;
+    }
+    .pay-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .pay-btn.loading { color: transparent; position: relative; }
+    .pay-btn.loading::after {
+      content: ""; position: absolute; inset: 0; margin: auto;
+      width: 16px; height: 16px;
+      border: 2px solid #fff; border-top-color: transparent;
+      border-radius: 50%;
+      animation: sp .9s linear infinite;
+    }
+    @keyframes sp { to { transform: rotate(360deg); } }
+    .legal-note { font-size: 14px; color: var(--muted); margin-top: 14px; line-height: 1.55; }
+    .legal-note a { color: var(--accent); }
+    .err-msg { font-size: 14px; color: #FF6058; margin-top: 6px; }
+
+    .empty { text-align: center; padding: 90px 28px; }
+    .empty .emoji { font-size: 72px; margin-bottom: 18px; }
+    .empty h2 {
+      font-family: var(--display); font-weight: 700;
+      font-size: clamp(36px, 5.6vw, 56px);
+      margin: 0 0 14px; letter-spacing: -0.01em;
+    }
+    .empty p { color: var(--muted); margin: 0 0 28px; font-size: 18px; }
+
+    .success { max-width: 680px; margin: 0 auto; padding: 80px 28px; }
+    .success .ok-tag {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 10px 18px;
+      background: rgba(74,222,128,0.12);
+      color: var(--ok);
+      border-radius: 999px;
+      font-size: 15px; font-weight: 500;
+      margin-bottom: 24px;
+    }
+    .success h2 {
+      font-family: var(--display); font-weight: 700;
+      font-size: clamp(42px, 6.4vw, 64px);
+      margin: 0 0 18px; letter-spacing: -0.01em; line-height: 1.05;
+    }
+    .success .ship-to { font-size: 18px; color: var(--ink); margin-bottom: 28px; line-height: 1.65; }
+    .success .ship-to b { color: var(--accent); font-weight: 500; }
+    .success .dlist {
+      background: var(--bg-elev); border: 1px solid var(--rule);
+      border-radius: var(--r); padding: 26px 28px; margin-bottom: 28px;
+    }
+    .success .dlist .di {
+      display: flex; justify-content: space-between; gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .success .dlist .di:last-child { border-bottom: 0; }
+    .success .dlist .di b { font-weight: 600; font-size: 17px; }
+    .success .dlist .di small { font-size: 14px; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="row">
+      <a class="wordmark" href="index.html">
+        <span class="mark">T</span>Tempo
+      </a>
+      <nav class="nav-links">
+        <a href="index.html#library">Library</a>
+        <a href="index.html#about">About</a>
+        <a href="delivery.html">Delivery</a>
+        <a href="returns.html">Refunds</a>
+      </nav>
+      <a class="cart-btn" href="checkout.html" id="cart-btn" data-empty="1">
+        🛒 Cart <span class="cb-count" id="cart-count">0</span>
+      </a>
+    </div>
+  </header>
+
+<div id="cart-view" style="display:none">
+  <div class="wrap">
+    <div class="head">
+      <h1>Checkout 🛒</h1>
+      <p>USD · delivered by email · 30-day refund</p>
+    </div>
+
+    <div class="grid">
+      <section class="panel">
+        <h2>📚 Your books</h2>
+        <div id="lines"></div>
+        <div class="totals">
+          <div class="r"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
+          <div class="r" id="dr" style="display:none"><span>Discount</span><span id="discount">−$0.00</span></div>
+          <div class="r t"><span>Total</span><span id="total">$0.00</span></div>
+        </div>
+        <div class="promo">
+          <input id="promo" placeholder="Promo code" maxlength="20">
+          <button id="apply">Apply</button>
+        </div>
+        <div class="promo-msg" id="promo-msg"></div>
+      </section>
+
+      <section class="panel">
+        <h2>💳 Payment</h2>
+        <form id="pay-form" novalidate>
+          <div class="field">
+            <label for="email">Email <span style="color:var(--accent)">— for delivery</span></label>
+            <input id="email" type="email" placeholder="you@example.com" required autocomplete="email">
+            <div class="err-msg" id="err-email"></div>
+          </div>
+          <div class="frow">
+            <div class="field">
+              <label for="fname">First name</label>
+              <input id="fname" type="text" required autocomplete="given-name">
+            </div>
+            <div class="field">
+              <label for="lname">Last name</label>
+              <input id="lname" type="text" required autocomplete="family-name">
+            </div>
+          </div>
+          <div class="field">
+            <label for="country">Country</label>
+            <select id="country" required>
+              <option value="">Select country</option>
+              <option>United States</option><option>United Kingdom</option><option>Canada</option><option>Australia</option><option>Germany</option><option>France</option><option>Netherlands</option><option>Ireland</option><option>Spain</option><option>Italy</option><option>Sweden</option><option>Switzerland</option><option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="card">Card number</label>
+            <input id="card" inputmode="numeric" placeholder="4242 4242 4242 4242" required autocomplete="cc-number">
+            <div class="err-msg" id="err-card"></div>
+          </div>
+          <div class="frow3">
+            <div class="field">
+              <label for="exp">Expiry</label>
+              <input id="exp" placeholder="MM / YY" required autocomplete="cc-exp">
+              <div class="err-msg" id="err-exp"></div>
+            </div>
+            <div class="field">
+              <label for="cvc">CVC</label>
+              <input id="cvc" inputmode="numeric" maxlength="4" placeholder="123" required autocomplete="cc-csc">
+              <div class="err-msg" id="err-cvc"></div>
+            </div>
+            <div class="field">
+              <label for="zip">ZIP</label>
+              <input id="zip" type="text" required autocomplete="postal-code">
+            </div>
+          </div>
+          <button type="submit" class="pay-btn" id="pay-btn">Pay <span id="pay-amount">$0.00</span></button>
+          <p class="legal-note">By paying you agree to our <a href="terms.html">terms</a> and <a href="privacy.html">privacy policy</a>. 30-day refund.</p>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div id="empty-view" style="display:none">
+  <div class="empty">
+    <div class="emoji">🛒</div>
+    <h2>Your cart is empty</h2>
+    <p>Pick something from the library to read.</p>
+    <a class="btn btn--big" href="index.html">📚 Browse the library</a>
+  </div>
+</div>
+
+<div id="success-view" style="display:none">
+  <div class="success">
+    <span class="ok-tag">✓ Payment received</span>
+    <h2>Thanks for the order!</h2>
+    <p class="ship-to">Your download links will be sent to <b id="paid-email"></b>. If nothing arrives, email <a href="mailto:help@temporeads.com" style="color:var(--accent)">help@temporeads.com</a> and we'll resend.</p>
+    <div class="dlist" id="dlist"></div>
+    <a class="btn btn--big" href="index.html">📚 Back to library</a>
+    <button class="btn btn--ghost btn--big" style="margin-left:10px" onclick="document.getElementById('resend').style.display='block'">📨 Resend</button>
+    <p id="resend" style="display:none; color: var(--muted); font-size: 15px; margin-top: 16px;">Email help@temporeads.com with the address you used and we'll resend.</p>
+  </div>
+</div>
+
+
+  <footer class="foot">
+    <div class="row">
+      <div class="colophon">
+        <strong>Tempo</strong> is a small online shop for practical productivity ebooks. Honest, no fluff guides on focus, habits, time management, and doing deep work.<br><br>
+        [Company details to be added]
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <a href="index.html#library">All books</a>
+        <a href="index.html#about">About Tempo</a>
+        <a href="checkout.html">Cart</a>
+      </div>
+      <div>
+        <h4>Help</h4>
+        <a href="delivery.html">Delivery</a>
+        <a href="returns.html">Refunds</a>
+        <a href="mailto:help@temporeads.com">help@temporeads.com</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="returns.html">Refund policy</a>
+      </div>
+    </div>
+    <div class="smallprint">
+      <span>© 2026 Tempo. All rights reserved.</span>
+      <span>Built for focused work.</span>
+    </div>
+  </footer>
+
+<script>
+  const STORE = { brand: 'Tempo', currency: 'USD', symbol: '$' };
+  const WEBHOOK_URL = '';
+  const PROMOS = {
+    'TEMPO10': { type: 'pct', value: 10, label: '10% off' },
+    'WELCOME5': { type: 'flat', value: 5, label: '$5 off' }
+  };
+  let appliedPromo = null;
+  
+  const CURRENCY_SYMBOL = '$';
+  function readCart() { try { return JSON.parse(localStorage.getItem('cart_v1') || '[]'); } catch(e) { return []; } }
+  function writeCart(c) { localStorage.setItem('cart_v1', JSON.stringify(c)); paintCart(); }
+  function addToCart(item) {
+    const c = readCart();
+    const existing = c.find(x => x.slug === item.slug);
+    if (existing) existing.qty = (existing.qty || 1) + 1;
+    else c.push({...item, qty: 1});
+    writeCart(c);
+  }
+  function cartCount() { return readCart().reduce((n, i) => n + (i.qty || 1), 0); }
+  function paintCart() {
+    const n = cartCount();
+    const el = document.getElementById('cart-count');
+    const btn = document.getElementById('cart-btn');
+    if (el) el.textContent = n;
+    if (btn) btn.dataset.empty = n === 0 ? '1' : '0';
+  }
+  document.addEventListener('DOMContentLoaded', paintCart);
+  window.addEventListener('storage', paintCart);
+
+
+  function fmt(n) { return STORE.symbol + n.toFixed(2); }
+
+  function render() {
+    const cart = readCart();
+    if (!cart.length) {
+      document.getElementById('cart-view').style.display = 'none';
+      document.getElementById('empty-view').style.display = 'block';
+      return;
+    }
+    document.getElementById('empty-view').style.display = 'none';
+    document.getElementById('cart-view').style.display = 'block';
+    const lines = document.getElementById('lines');
+    lines.innerHTML = cart.map((it, i) => `
+      <div class="item">
+        <img src="covers/${it.slug}.jpg" alt="">
+        <div>
+          <div class="item-title">${it.title}</div>
+          <div class="item-meta">${it.author ? 'by ' + it.author + ' · ' : ''}${(it.deliverables||['PDF']).join(', ')}</div>
+        </div>
+        <div class="item-actions">
+          <span class="item-price">${fmt(it.price * (it.qty||1))}</span>
+          <div class="qty">
+            <button data-i="${i}" data-d="-1">−</button>
+            <span>${it.qty||1}</span>
+            <button data-i="${i}" data-d="1">+</button>
+          </div>
+          <button class="remove" data-rm="${i}">Remove</button>
+        </div>
+      </div>
+    `).join('');
+    lines.querySelectorAll('[data-d]').forEach(b => b.onclick = () => {
+      const i = +b.dataset.i, d = +b.dataset.d;
+      const c = readCart();
+      c[i].qty = Math.max(1, (c[i].qty||1)+d);
+      writeCart(c); render();
+    });
+    lines.querySelectorAll('[data-rm]').forEach(b => b.onclick = () => {
+      const i = +b.dataset.rm;
+      const c = readCart();
+      c.splice(i,1);
+      writeCart(c); render();
+    });
+    totals();
+  }
+
+  function totals() {
+    const cart = readCart();
+    const sub = cart.reduce((s, it) => s + it.price * (it.qty||1), 0);
+    let disc = 0;
+    if (appliedPromo) {
+      disc = appliedPromo.type === 'pct' ? sub * appliedPromo.value / 100 : appliedPromo.value;
+      disc = Math.min(disc, sub);
+    }
+    const total = Math.max(0, sub - disc);
+    document.getElementById('subtotal').textContent = fmt(sub);
+    if (disc > 0) {
+      document.getElementById('dr').style.display = 'flex';
+      document.getElementById('discount').textContent = '−' + fmt(disc);
+    } else {
+      document.getElementById('dr').style.display = 'none';
+    }
+    document.getElementById('total').textContent = fmt(total);
+    document.getElementById('pay-amount').textContent = fmt(total);
+  }
+
+  document.getElementById('apply').onclick = () => {
+    const code = document.getElementById('promo').value.trim().toUpperCase();
+    const msg = document.getElementById('promo-msg');
+    if (!code) { msg.textContent = ''; return; }
+    if (PROMOS[code]) {
+      appliedPromo = PROMOS[code];
+      msg.className = 'promo-msg ok';
+      msg.textContent = '✓ Applied: ' + PROMOS[code].label;
+    } else {
+      appliedPromo = null;
+      msg.className = 'promo-msg err';
+      msg.textContent = 'Code not recognized.';
+    }
+    totals();
+  };
+
+  document.getElementById('card').addEventListener('input', e => {
+    let v = e.target.value.replace(/\D/g,'').slice(0,19);
+    v = v.match(/.{1,4}/g)?.join(' ') || '';
+    e.target.value = v;
+  });
+  document.getElementById('exp').addEventListener('input', e => {
+    let v = e.target.value.replace(/\D/g,'').slice(0,4);
+    if (v.length >= 3) v = v.slice(0,2) + ' / ' + v.slice(2);
+    e.target.value = v;
+  });
+  document.getElementById('cvc').addEventListener('input', e => {
+    e.target.value = e.target.value.replace(/\D/g,'').slice(0,4);
+  });
+
+  function validate() {
+    let ok = true;
+    const clear = id => { document.getElementById(id).textContent=''; document.getElementById(id.replace('err-','')).classList.remove('err'); };
+    const fail = (id, m) => { document.getElementById(id).textContent=m; document.getElementById(id.replace('err-','')).classList.add('err'); ok=false; };
+    clear('err-email'); clear('err-card'); clear('err-exp'); clear('err-cvc');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(document.getElementById('email').value.trim())) fail('err-email', 'Valid email required for delivery.');
+    if (document.getElementById('card').value.replace(/\D/g,'').length < 13) fail('err-card', 'Card number looks short.');
+    if (document.getElementById('exp').value.replace(/\D/g,'').length !== 4) fail('err-exp', 'Use MM YY format.');
+    if (document.getElementById('cvc').value.length < 3) fail('err-cvc', 'CVC too short.');
+    return ok;
+  }
+
+  document.getElementById('pay-form').addEventListener('submit', e => {
+    e.preventDefault();
+    if (!validate()) return;
+    const btn = document.getElementById('pay-btn');
+    btn.classList.add('loading'); btn.disabled = true;
+    const email = document.getElementById('email').value.trim();
+    const cart = readCart();
+    setTimeout(() => {
+      document.getElementById('cart-view').style.display = 'none';
+      document.getElementById('paid-email').textContent = email;
+      const dl = document.getElementById('dlist');
+      dl.innerHTML = cart.map(it => `
+        <div class="di"><b>${it.title}</b><small>${(it.deliverables||['PDF']).join(', ')}</small></div>
+      `).join('');
+      document.getElementById('success-view').style.display = 'block';
+      localStorage.removeItem('cart_v1'); paintCart();
+      window.scrollTo(0, 0);
+    }, 1300);
+  });
+
+  render();
+</script>
+</body>
+</html>
